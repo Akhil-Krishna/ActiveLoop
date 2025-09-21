@@ -49,31 +49,31 @@ USE activeloop;
 -- Using proper Werkzeug password hash format
 INSERT INTO users (username, email, password_hash, first_name, last_name, location, role, status) VALUES
 -- 2 Admins
-('admin1', 'admin1@activeloop.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Super', 'Admin', 'Christchurch', 'admin', 'active'),
-('jadmin', 'jane.admin@activeloop.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Jane', 'Admin', 'Lincoln', 'admin', 'active'),
+('admin1', 'admin1@activeloop.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Super', 'Admin', 'Christchurch', 'admin', 'active'),
+('jadmin', 'jane.admin@activeloop.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Jane', 'Admin', 'Lincoln', 'admin', 'active'),
 
 -- 10 Volunteers
-('vbrown', 'sarah.brown@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Sarah', 'Brown', 'Christchurch', 'volunteer', 'active'),
-('mtaylor', 'mike.taylor@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Mike', 'Taylor', 'Lincoln', 'volunteer', 'active'),
-('lwilson', 'lisa.wilson@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Lisa', 'Wilson', 'Rolleston', 'volunteer', 'active'),
-('rjones', 'robert.jones@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Robert', 'Jones', 'Ashburton', 'volunteer', 'active'),
-('kjohnson', 'karen.johnson@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Karen', 'Johnson', 'Timaru', 'volunteer', 'active'),
-('dclark', 'david.clark@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'David', 'Clark', 'Christchurch', 'volunteer', 'active'),
-('awhite', 'anna.white@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Anna', 'White', 'Lincoln', 'volunteer', 'active'),
-('tgreen', 'tom.green@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Tom', 'Green', 'Rolleston', 'volunteer', 'active'),
-('mblue', 'mary.blue@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Mary', 'Blue', 'Timaru', 'volunteer', 'active'),
+('vbrown', 'sarah.brown@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Sarah', 'Brown', 'Christchurch', 'volunteer', 'active'),
+('mtaylor', 'mike.taylor@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Mike', 'Taylor', 'Lincoln', 'volunteer', 'active'),
+('lwilson', 'lisa.wilson@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Lisa', 'Wilson', 'Rolleston', 'volunteer', 'active'),
+('rjones', 'robert.jones@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Robert', 'Jones', 'Ashburton', 'volunteer', 'active'),
+('kjohnson', 'karen.johnson@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Karen', 'Johnson', 'Timaru', 'volunteer', 'active'),
+('dclark', 'david.clark@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'David', 'Clark', 'Christchurch', 'volunteer', 'active'),
+('awhite', 'anna.white@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Anna', 'White', 'Lincoln', 'volunteer', 'active'),
+('tgreen', 'tom.green@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Tom', 'Green', 'Rolleston', 'volunteer', 'active'),
+('mblue', 'mary.blue@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Mary', 'Blue', 'Timaru', 'volunteer', 'active'),
 
 -- 10 Participants
-('jsmith', 'john.smith@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'John', 'Smith', 'Christchurch', 'participant', 'active'),
-('ewilliams', 'emma.williams@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Emma', 'Williams', 'Lincoln', 'participant', 'active'),
-('mjohnson', 'michael.johnson@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Michael', 'Johnson', 'Rolleston', 'participant', 'active'),
-('sdavis', 'sophia.davis@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Sophia', 'Davis', 'Christchurch', 'participant', 'active'),
-('agarcia', 'anthony.garcia@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Anthony', 'Garcia', 'Lincoln', 'participant', 'active'),
-('omiller', 'olivia.miller@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Olivia', 'Miller', 'Ashburton', 'participant', 'active'),
-('jwilson', 'james.wilson@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'James', 'Wilson', 'Timaru', 'participant', 'active'),
-('amartinez', 'ava.martinez@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Ava', 'Martinez', 'Rolleston', 'participant', 'active'),
-('banderson', 'benjamin.anderson@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Benjamin', 'Anderson', 'Canterbury', 'participant', 'active'),
-('cbanned', 'banned.user@email.com', 'pbkdf2:sha256:600000$8GzWK4iX$8c83f35a64e5e1b3f6b3c6a5d9f2e4b7c0a8d3e6f9b2c5a8d1e4b7c0a3f6d9e2', 'Banned', 'User', 'Christchurch', 'participant', 'banned');
+('jsmith', 'john.smith@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'John', 'Smith', 'Christchurch', 'participant', 'active'),
+('ewilliams', 'emma.williams@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Emma', 'Williams', 'Lincoln', 'participant', 'active'),
+('mjohnson', 'michael.johnson@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Michael', 'Johnson', 'Rolleston', 'participant', 'active'),
+('sdavis', 'sophia.davis@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Sophia', 'Davis', 'Christchurch', 'participant', 'active'),
+('agarcia', 'anthony.garcia@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Anthony', 'Garcia', 'Lincoln', 'participant', 'active'),
+('omiller', 'olivia.miller@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Olivia', 'Miller', 'Ashburton', 'participant', 'active'),
+('jwilson', 'james.wilson@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'James', 'Wilson', 'Timaru', 'participant', 'active'),
+('amartinez', 'ava.martinez@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Ava', 'Martinez', 'Rolleston', 'participant', 'active'),
+('banderson', 'benjamin.anderson@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Benjamin', 'Anderson', 'Canterbury', 'participant', 'active'),
+('cbanned', 'banned.user@email.com', 'scrypt:32768:8:1$QW9fHvt8kiKXcQcy$65b62c5102fc6dd4307e8ee4f0c6d966203cd2c61bc8f1491194476ea6b9ff62e03017a802290b2ec381303285df247d13ffda6c0f1a8a9402d8b532b5044f86', 'Banned', 'User', 'Christchurch', 'participant', 'banned');
 
 -- Insert 10 sample events
 INSERT INTO events (title, description, event_date, event_time, location, event_type, max_participants, created_by) VALUES

@@ -499,30 +499,54 @@ def create_event():
 
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        # Insert event
         cursor.execute("""
             INSERT INTO events (title, event_date, event_time, location, event_type, description, max_participants, created_by)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, (title, event_date, event_time, location, event_type, description, max_participants, session['user_id']))
         event_id = cursor.lastrowid
 
-        volunteer_roles_data = [
-            ('Event Coordinator', 1), ('Registration Assistant', 2), ('Course Marshal', 3),
-            ('Timekeeper', 1), ('Results Recorder', 1), ('Route Setup Crew', 2),
-            ('Pack-down Crew', 2), ('Tail Walker/Cyclist', 1), ('Photographer/Social Media Volunteer', 1),
-            ('First Timers Host', 1), ('Safety & First Aid Support', 1), ('Volunteer Coordinator', 1)
-        ]
-        if event_type.lower() == 'cycling':
-            volunteer_roles_data.append(('Bike Marshal', 2))
+        # ✅ Get volunteer roles from the form
+        role_names = request.form.getlist('role_name[]')
+        volunteers_needed = request.form.getlist('volunteers_needed[]')
 
-        for role_name, volunteers_needed in volunteer_roles_data:
-            cursor.execute("INSERT INTO volunteer_roles (event_id, role_name, volunteers_needed) VALUES (%s, %s, %s)", (event_id, role_name, volunteers_needed))
+        if role_names and volunteers_needed:
+            for role_name, needed in zip(role_names, volunteers_needed):
+                if role_name.strip() and needed.strip():
+                    cursor.execute("""
+                        INSERT INTO volunteer_roles (event_id, role_name, volunteers_needed)
+                        VALUES (%s, %s, %s)
+                    """, (event_id, role_name.strip(), int(needed)))
+        else:
+            # Optional fallback: insert default roles
+            default_roles = [
+                ('Event Coordinator', 1), ('Registration Assistant', 2),
+                ('Course Marshal', 3), ('Timekeeper', 1),
+                ('Results Recorder', 1), ('Route Setup Crew', 2),
+                ('Pack-down Crew', 2), ('Tail Walker/Cyclist', 1),
+                ('Photographer/Social Media Volunteer', 1),
+                ('First Timers Host', 1), ('Safety & First Aid Support', 1),
+                ('Volunteer Coordinator', 1)
+            ]
+            if event_type.lower() == 'cycling':
+                default_roles.append(('Bike Marshal', 2))
 
+            for role_name, volunteers_needed in default_roles:
+                cursor.execute("""
+                    INSERT INTO volunteer_roles (event_id, role_name, volunteers_needed)
+                    VALUES (%s, %s, %s)
+                """, (event_id, role_name, volunteers_needed))
+
+        conn.commit()
         cursor.close()
         conn.close()
+
         flash('Event created successfully!', 'success')
         return redirect(url_for('admin_dashboard'))
 
     return render_template('create_event.html')
+
 
 @app.route('/upload-results/<int:event_id>', methods=['GET', 'POST'])
 @volunteer_required
@@ -787,11 +811,12 @@ def admin_events():
 @app.route('/admin/event/<int:event_id>/edit', methods=['GET', 'POST'])
 @admin_required
 def admin_edit_event(event_id):
-    """Edit an existing event"""
+    """Edit an existing event including volunteer roles"""
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     if request.method == 'POST':
+        # Update event details
         title = request.form.get('title', '').strip()
         event_date = request.form.get('event_date', '')
         event_time = request.form.get('event_time', '')
@@ -799,29 +824,50 @@ def admin_edit_event(event_id):
         event_type = request.form.get('event_type', '').strip()
         description = request.form.get('description', '').strip()
         max_participants = int(request.form.get('max_participants', 0) or 0)
-        
+
         cursor.execute("""
             UPDATE events 
             SET title = %s, event_date = %s, event_time = %s, location = %s, 
                 event_type = %s, description = %s, max_participants = %s
             WHERE event_id = %s
         """, (title, event_date, event_time, location, event_type, description, max_participants, event_id))
-        
-        flash('Event updated successfully!', 'success')
-        return redirect(url_for('admin_events'))
-    
-    # GET request - show edit form
+
+        # Update volunteer roles
+        cursor.execute("DELETE FROM volunteer_roles WHERE event_id = %s", (event_id,))
+        role_names = request.form.getlist('role_name[]')
+        volunteers_needed = request.form.getlist('volunteers_needed[]')
+
+        for role_name, needed in zip(role_names, volunteers_needed):
+            if role_name.strip() and needed.strip():
+                cursor.execute("""
+                    INSERT INTO volunteer_roles (event_id, role_name, volunteers_needed)
+                    VALUES (%s, %s, %s)
+                """, (event_id, role_name.strip(), int(needed)))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        flash('Event and roles updated successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+
+    # GET request: load event + roles
     cursor.execute("SELECT * FROM events WHERE event_id = %s", (event_id,))
     event = cursor.fetchone()
-    
+
     if not event:
+        cursor.close()
+        conn.close()
         flash('Event not found.', 'danger')
-        return redirect(url_for('admin_events'))
-    
+        return redirect(url_for('admin_dashboard'))
+
+    cursor.execute("SELECT * FROM volunteer_roles WHERE event_id = %s", (event_id,))
+    roles = cursor.fetchall()
+
     cursor.close()
     conn.close()
-    
-    return render_template('admin_edit_event.html', event=event)
+
+    return render_template('admin_edit_event.html', event=event, roles=roles)
 
 @app.route('/admin/event/<int:event_id>/cancel', methods=['POST'])
 @admin_required

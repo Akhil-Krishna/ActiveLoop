@@ -1,22 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>My Profile</h2>
-<form method="post">
-  <input type="hidden" name="action" value="update_profile">
-  <div class="mb-3"><input class="form-control" name="first_name" value="{{ user.first_name }}"></div>
-  <div class="mb-3"><input class="form-control" name="last_name" value="{{ user.last_name }}"></div>
-  <div class="mb-3"><input class="form-control" name="email" value="{{ user.email }}"></div>
-  <div class="mb-3"><input class="form-control" name="location" value="{{ user.location }}"></div>
-  <button class="btn btn-success">Update Profile</button>
-</form>
+<div class="container py-4">
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">My Profile</h4>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        <input type="hidden" name="action" value="update_profile">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            <input class="form-control" name="first_name" value="{{ user.first_name }}">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <input class="form-control" name="last_name" value="{{ user.last_name }}">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" name="email" value="{{ user.email }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input class="form-control" name="location" value="{{ user.location }}">
+        </div>
+        <button class="btn btn-success w-100">Update Profile</button>
+      </form>
+    </div>
+  </div>
 
-<hr>
-<h4>Change Password</h4>
-<form method="post">
-  <input type="hidden" name="action" value="change_password">
-  <div class="mb-3"><input type="password" class="form-control" name="current_password" placeholder="Current Password"></div>
-  <div class="mb-3"><input type="password" class="form-control" name="new_password" placeholder="New Password"></div>
-  <div class="mb-3"><input type="password" class="form-control" name="confirm_password" placeholder="Confirm New Password"></div>
-  <button class="btn btn-warning">Change Password</button>
-</form>
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+      <h4 class="mb-0">Change Password</h4>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        <input type="hidden" name="action" value="change_password">
+        <div class="mb-3">
+          <label class="form-label">Current Password</label>
+          <input type="password" class="form-control" name="current_password" placeholder="Current Password">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">New Password</label>
+          <input type="password" class="form-control" name="new_password" placeholder="New Password">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm New Password</label>
+          <input type="password" class="form-control" name="confirm_password" placeholder="Confirm New Password">
+        </div>
+        <button class="btn btn-warning w-100">Change Password</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

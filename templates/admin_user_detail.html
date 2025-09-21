@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>User Details</h2>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h5>{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</h5>
+    <p>Email: {{ user.email }}</p>
+    <p>Role: <span class="badge bg-info">{{ user.role }}</span></p>
+    <p>Status: 
+      {% if user.status == 'active' %}
+        <span class="badge bg-success">Active</span>
+      {% else %}
+        <span class="badge bg-danger">Banned</span>
+      {% endif %}
+    </p>
+
+    <form method="post" action="{{ url_for('admin_toggle_user_status', user_id=user.user_id) }}" class="d-inline">
+      <button class="btn btn-warning">Change Status</button>
+    </form>
+
+    <form method="post" action="{{ url_for('admin_change_user_role', user_id=user.user_id) }}" class="d-inline">
+      <select name="new_role" class="form-select d-inline w-auto">
+        <option value="participant">Participant</option>
+        <option value="volunteer">Volunteer</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button class="btn btn-secondary">Change Role</button>
+    </form>
+  </div>
+</div>
+
+<h4>Recent Registrations</h4>
+<ul class="list-group mb-3">
+  {% for r in registrations %}
+  <li class="list-group-item">{{ r.title }} — {{ r.event_date }} (Registered on {{ r.registration_date }})</li>
+  {% else %}
+  <li class="list-group-item">No registrations found.</li>
+  {% endfor %}
+</ul>
+
+<h4>Volunteer History</h4>
+<ul class="list-group">
+  {% for v in volunteer_history %}
+  <li class="list-group-item">{{ v.title }} — {{ v.event_date }} ({{ v.role_name }})</li>
+  {% else %}
+  <li class="list-group-item">No volunteer assignments found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

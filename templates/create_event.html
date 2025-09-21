@@ -15,6 +15,56 @@
   <div class="mb-3"><input type="text" class="form-control" name="location" placeholder="Location"></div>
   <div class="mb-3"><input type="number" class="form-control" name="max_participants" placeholder="Max Participants" required></div>
   <div class="mb-3"><input type="text" class="form-control" name="event_type" placeholder="Type (e.g. Running, Cycling)" required></div>
+  
+  <h4 class="mt-4">Volunteer Roles</h4>
+<div id="roles-container">
+  <div class="row mb-2 role-row">
+    <div class="col-md-6">
+      <input type="text" name="role_name[]" class="form-control" placeholder="Role name (e.g., Marshal)" required>
+    </div>
+    <div class="col-md-4">
+      <input type="number" name="volunteers_needed[]" class="form-control" placeholder="Number needed" required>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-danger remove-role">X</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-outline-primary mb-3" id="add-role">+ Add Role</button>
+
   <button class="btn btn-success">Create Event</button>
+  
 </form>
+
+
+<script>
+document.getElementById('add-role').addEventListener('click', function() {
+  const container = document.getElementById('roles-container');
+  const row = document.createElement('div');
+  row.classList.add('row', 'mb-2', 'role-row');
+  row.innerHTML = `
+    <div class="col-md-6">
+      <input type="text" name="role_name[]" class="form-control" placeholder="Role name" required>
+    </div>
+    <div class="col-md-4">
+      <input type="number" name="volunteers_needed[]" class="form-control" placeholder="Number needed" required>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-danger remove-role">X</button>
+    </div>
+  `;
+  container.appendChild(row);
+});
+
+// Handle remove
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('remove-role')) {
+    e.target.closest('.role-row').remove();
+  }
+});
+</script>
+
+
 {% endblock %}
+
+

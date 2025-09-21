@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Events</h2>
+
+<a href="{{ url_for('create_event') }}" class="btn btn-success mb-3">+ Create Event</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Type</th>
+      <th>Participants</th>
+      <th>Volunteers</th>
+      <th>Created By</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td>{{ e.title }}</td>
+      <td>{{ e.event_date }}</td>
+      <td>{{ e.location }}</td>
+      <td>{{ e.event_type }}</td>
+      <td>{{ e.registered_count }}</td>
+      <td>{{ e.volunteer_count }}</td>
+      <td>{{ e.created_by_name }}</td>
+      <td>
+        <a href="{{ url_for('event_detail', event_id=e.event_id) }}" class="btn btn-sm btn-outline-primary">View</a>
+        <a href="{{ url_for('admin_edit_event', event_id=e.event_id) }}" class="btn btn-sm btn-outline-warning">Edit</a>
+        <form action="{{ url_for('admin_cancel_event', event_id=e.event_id) }}" method="post" class="d-inline">
+          <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Cancel this event?')">Cancel</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" class="text-center">No events found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Event</h2>
+
+<form method="post" class="card p-4">
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input type="text" class="form-control" name="title" value="{{ event.title }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date</label>
+    <input type="date" class="form-control" name="event_date" value="{{ event.event_date }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Time</label>
+    <input type="time" class="form-control" name="event_time" value="{{ event.event_time }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Location</label>
+    <input type="text" class="form-control" name="location" value="{{ event.location }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Type</label>
+    <input type="text" class="form-control" name="event_type" value="{{ event.event_type }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea class="form-control" name="description">{{ event.description }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Max Participants</label>
+    <input type="number" class="form-control" name="max_participants" value="{{ event.max_participants }}">
+  </div>
+  <h4>Volunteer Roles</h4>
+<div id="roles-container">
+  {% for role in roles %}
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <input type="text" name="role_name[]" class="form-control" value="{{ role.role_name }}" placeholder="Role Name">
+      </div>
+      <div class="col-md-4">
+        <input type="number" name="volunteers_needed[]" class="form-control" value="{{ role.volunteers_needed }}" min="1">
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<button type="button" class="btn btn-sm btn-secondary" onclick="addRoleField()">+ Add Role</button>
+<br>
+<br>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+  <a href="{{ url_for('admin_events') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+
+<script>
+function addRoleField() {
+  const container = document.getElementById('roles-container');
+  const row = document.createElement('div');
+  row.classList.add('row', 'mb-2');
+
+  row.innerHTML = `
+    <div class="col-md-6">
+      <input type="text" name="role_name[]" class="form-control" placeholder="Role Name">
+    </div>
+    <div class="col-md-4">
+      <input type="number" name="volunteers_needed[]" class="form-control" placeholder="Needed" min="1">
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-danger" onclick="removeRoleField(this)">Remove</button>
+    </div>
+  `;
+
+  container.appendChild(row);
+}
+
+function removeRoleField(button) {
+  button.closest('.row').remove();
+}
+</script>
+
+{% endblock %}
