@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Browse Events</h2>
+<form method="get" class="row g-2 mb-3">
+  <div class="col"><input class="form-control" name="type" placeholder="Type" value="{{ search_type }}"></div>
+  <div class="col"><input class="form-control" name="location" placeholder="Location" value="{{ search_location }}"></div>
+  <div class="col"><input class="form-control" type="date" name="date" value="{{ search_date }}"></div>
+  <div class="col"><button class="btn btn-primary">Search</button></div>
+</form>
+
+<div class="list-group">
+  {% for ev in events %}
+    <a href="{{ url_for('event_detail', event_id=ev.event_id) }}" class="list-group-item">
+      {{ ev.title }} — {{ ev.event_date }} at {{ ev.location }}
+    </a>
+  {% else %}
+    <p>No events found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

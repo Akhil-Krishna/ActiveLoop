@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<!-- Quick Actions -->
+<div class="mb-3">
+  <a href="{{ url_for('create_event') }}" class="btn btn-success">Create New Event</a>
+</div>
+
+<!-- User Stats -->
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Total Users</h5>
+        <p class="card-text">{{ total_users }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Active Users</h5>
+        <p class="card-text">{{ active_users }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-danger mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Banned Users</h5>
+        <p class="card-text">{{ banned_users }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Event Stats -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card border-secondary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Total Events</h5>
+        <p class="card-text">{{ total_events }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-info mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Upcoming Events</h5>
+        <p class="card-text">{{ upcoming_events }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-warning mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Past Events</h5>
+        <p class="card-text">{{ past_events }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-dark mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Total Registrations</h5>
+        <p class="card-text">{{ total_registrations }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Events by Type -->
+<h4>Events by Type</h4>
+<ul class="list-group mb-4">
+  {% for et in events_by_type %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ et.event_type }}
+      <span class="badge bg-primary rounded-pill">{{ et.count }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Top 5 Events by Registrations -->
+<h4>Top 5 Events by Registrations</h4>
+<ul class="list-group mb-4">
+  {% for ev in top_events %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ ev.title }}
+      <span class="badge bg-success rounded-pill">{{ ev.registered_count }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Recent Events -->
+<h4>Recently Created Events</h4>
+<ul class="list-group mb-4">
+  {% for ev in recent_events %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ ev.title }} — {{ ev.event_date }} at {{ ev.location }}
+      <span class="badge bg-info rounded-pill">{{ ev.registered_count }} registered</span>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

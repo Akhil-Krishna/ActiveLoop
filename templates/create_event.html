@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create New Event</h2>
+<form method="post">
+  <div class="mb-3">
+    <input type="text" class="form-control" name="title" placeholder="Event Title" required>
+  </div>
+  <div class="mb-3">
+    <textarea class="form-control" name="description" placeholder="Description"></textarea>
+  </div>
+  <div class="row mb-3">
+    <div class="col"><input type="date" class="form-control" name="event_date" required></div>
+    <div class="col"><input type="time" class="form-control" name="event_time" required></div>
+  </div>
+  <div class="mb-3"><input type="text" class="form-control" name="location" placeholder="Location"></div>
+  <div class="mb-3"><input type="number" class="form-control" name="max_participants" placeholder="Max Participants" required></div>
+  <div class="mb-3"><input type="text" class="form-control" name="event_type" placeholder="Type (e.g. Running, Cycling)" required></div>
+  <button class="btn btn-success">Create Event</button>
+</form>
+{% endblock %}

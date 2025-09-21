@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Dashboard (Participant)</h2>
+
+<h4>Upcoming Events</h4>
+<ul class="list-group mb-3">
+  {% for ev in upcoming_events %}
+    <li class="list-group-item"><a href="{{ url_for('event_detail', event_id=ev.event_id) }}" class="list-group-item">
+      {{ ev.title }} — {{ ev.event_date }} at {{ ev.location }}
+    </a></li>
+  {% else %}
+    <li class="list-group-item">No upcoming events.</li>
+  {% endfor %}
+</ul>
+
+<h4>Past Events & Results</h4>
+<ul class="list-group">
+  {% for ev in past_events %}
+    <li class="list-group-item">
+      {{ ev.title }} — Time: {{ ev.finish_time }} Position: {{ ev.position }}
+    </li>
+  {% else %}
+    <li class="list-group-item">No past events.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

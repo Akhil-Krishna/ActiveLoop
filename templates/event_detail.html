@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Event Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h2 class="card-title">{{ event.title }}</h2>
+            <p class="text-muted mb-1"><strong>Date:</strong> {{ event.event_date }} at {{ event.event_time }}</p>
+            <p class="text-muted mb-1"><strong>Location:</strong> {{ event.location }}</p>
+            <p class="text-muted mb-3"><strong>Type:</strong> {{ event.event_type }}</p>
+            <p class="card-text">{{ event.description }}</p>
+
+            <hr>
+            <p><strong>Registrations:</strong> {{ registration_count }} / {{ event.max_participants }}</p>
+
+            {% if session.get('user_id') %}
+    {% if is_past_event %}
+        <div class="alert alert-secondary">This event has already finished. Registrations are closed.</div>
+    {% elif is_registered %}
+        <div class="alert alert-info">✅ You are already registered for this event.</div>
+    {% elif registration_count >= event.max_participants %}
+        <div class="alert alert-danger">❌ This event is full.</div>
+    {% else %}
+        <form action="{{ url_for('register_event', event_id=event.event_id) }}" method="POST">
+            <button class="btn btn-primary">Register for Event</button>
+        </form>
+    {% endif %}
+{% else %}
+    <div class="alert alert-warning">
+        Please <a href="{{ url_for('login') }}">login</a> to register.
+    </div>
+{% endif %}
+
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>Volunteer Roles</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Needed</th>
+                    <th>Assigned</th>
+                    <th>Status</th>
+                    <th>Signup</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for role in volunteer_roles %}
+                <tr>
+                    <td>{{ role.role_name }}</td>
+                    <td>{{ role.volunteers_needed }}</td>
+                    <td>{{ role.assigned_count }}</td>
+                    <td>
+                        {% if role.assigned_count >= role.volunteers_needed %}
+                            <span class="badge bg-danger">Full</span>
+                        {% else %}
+                            <span class="badge bg-success">Open</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if session.get('role') in ['volunteer', 'admin'] %}
+                            {% if role.assigned_count < role.volunteers_needed %}
+                                <form action="{{ url_for('volunteer_signup', event_id=event.event_id, role_name=role.role_name) }}" method="POST">
+                                    <button class="btn btn-sm btn-outline-primary">Sign Up</button>
+                                </form>
+                            {% else %}
+                                <button class="btn btn-sm btn-secondary" disabled>Unavailable</button>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-muted">Login as volunteer to join</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No volunteer roles available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ url_for('events') }}" class="btn btn-secondary">⬅ Back to Events</a>
+    </div>
+</div>
+{% endblock %}

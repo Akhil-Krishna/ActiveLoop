@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Volunteer Dashboard</h2>
+
+<h4>Upcoming Assignments</h4>
+<ul class="list-group">
+  {% for role in upcoming_assignments %}
+    <li class="list-group-item">
+      <strong><a href="{{ url_for('event_detail', event_id=role.event_id) }}">
+        {{ role.title }}
+      </a></strong>  
+      <br>
+      Date: {{ role.event_date }} | Location: {{ role.location }} | Type: {{ role.event_type }}
+      <br>
+      Your Role: <span class="badge bg-primary">{{ role.role_name }}</span>
+      <br>
+      Assigned on: {{ role.assignment_date }}
+    </li>
+  {% else %}
+    <li class="list-group-item">No upcoming assignments yet.</li>
+  {% endfor %}
+</ul>
+
+<h4 class="mt-4">Volunteer History</h4>
+<ul class="list-group">
+  {% for role in volunteer_history %}
+    <li class="list-group-item">
+      <strong><a href="{{ url_for('event_detail', event_id=role.event_id) }}">
+        {{ role.title }}
+      </a></strong>  
+      <br>
+      Date: {{ role.event_date }} | Location: {{ role.location }} | Type: {{ role.event_type }}
+      <br>
+      Your Role: <span class="badge bg-secondary">{{ role.role_name }}</span>
+    </li>
+  {% else %}
+    <li class="list-group-item">No past assignments yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
